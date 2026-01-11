@@ -320,7 +320,7 @@ export default function Home() {
                 ¿Qué formato tienen los archivos generados?
               </h3>
               <p className="text-text-muted">
-                Los archivos generados son archivos CSV estándar (.csv) que puedes abrir con Excel, Google Sheets, o cualquier aplicación que soporte este formato. Mantienen la misma estructura del archivo original.
+                Los archivos generados son archivos CSV estándar (.csv) comprimidos en un archivo ZIP para facilitar la descarga. Puedes extraer el ZIP y abrir los archivos CSV con Excel, Google Sheets, o cualquier aplicación que soporte este formato. Mantienen la misma estructura del archivo original.
               </p>
             </div>
 

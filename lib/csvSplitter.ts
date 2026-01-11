@@ -1,3 +1,5 @@
+import JSZip from 'jszip';
+
 export interface CSVFile {
   name: string;
   content: string;
@@ -94,14 +96,36 @@ export function downloadCSV(file: CSVFile): void {
 }
 
 /**
- * Descarga todos los archivos como ZIP (simplificado: descarga uno por uno)
+ * Descarga todos los archivos como ZIP
  */
-export function downloadAllCSVs(files: CSVFile[]): void {
-  files.forEach((file, index) => {
-    setTimeout(() => {
-      downloadCSV(file);
-    }, index * 100); // Pequeño delay entre descargas
+export async function downloadAllCSVs(files: CSVFile[]): Promise<void> {
+  const zip = new JSZip();
+
+  // Agregar todos los archivos CSV al ZIP
+  files.forEach((file) => {
+    zip.file(file.name, file.content);
   });
+
+  // Generar el archivo ZIP
+  const zipBlob = await zip.generateAsync({ type: 'blob' });
+
+  // Crear nombre del ZIP con timestamp
+  const timestamp = new Date().toISOString().split('T')[0];
+  const zipFileName = `csv_files_${timestamp}.zip`;
+
+  // Descargar el ZIP
+  const link = document.createElement('a');
+  const url = URL.createObjectURL(zipBlob);
+
+  link.setAttribute('href', url);
+  link.setAttribute('download', zipFileName);
+  link.style.visibility = 'hidden';
+
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+
+  URL.revokeObjectURL(url);
 }
 
 /**

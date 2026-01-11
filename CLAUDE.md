@@ -13,6 +13,7 @@ CSV Splitter is a client-side web application built with Next.js 16+ that allows
 - **React**: 19.2.3
 - **Styling**: Tailwind CSS 3.4.19
 - **Build Tool**: Next.js built-in compiler
+- **File Processing**: JSZip (for ZIP file generation)
 
 ## Development Commands
 
@@ -111,7 +112,10 @@ No external state management library. All state is local to `app/page.tsx`:
 - Lines are split by `\n` and empty lines are filtered out
 - Header row is always assumed to exist (line 27 in csvSplitter.ts)
 - File downloads use Blob API and temporary object URLs
-- Multiple downloads are staggered by 100ms to avoid browser blocking
+- **ZIP Download**: All files are compressed into a single ZIP file using JSZip library
+  - Individual files can still be downloaded separately
+  - ZIP filename includes timestamp: `csv_files_YYYY-MM-DD.zip`
+  - Loading state shown while ZIP is being generated
 
 ### Client-Side Only
 
