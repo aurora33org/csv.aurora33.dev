@@ -2,8 +2,8 @@ import type { Metadata } from 'next'
 import './globals.css'
 
 export const metadata: Metadata = {
-  title: 'CSV Splitter - Divide tus archivos CSV fácilmente',
-  description: 'Herramienta gratuita para dividir archivos CSV grandes en archivos más pequeños',
+  title: 'CSV Splitter - Aurora 33',
+  description: 'Divide tus archivos CSV fácilmente. Herramienta gratuita y segura de Aurora 33.',
 }
 
 export default function RootLayout({
@@ -13,28 +13,32 @@ export default function RootLayout({
 }) {
   return (
     <html lang="es">
-      <body className="font-sans antialiased">
+      <body className="antialiased">
         <div className="min-h-screen">
-          <header className="bg-white/80 backdrop-blur-sm border-b border-slate-200 sticky top-0 z-50">
+          <header className="bg-white border-b border-slate-200 sticky top-0 z-50">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
               <div className="flex items-center justify-between">
-                <div className="flex items-center space-x-3">
-                  <div className="w-10 h-10 bg-gradient-to-br from-primary-500 to-primary-700 rounded-lg flex items-center justify-center">
-                    <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-                    </svg>
-                  </div>
-                  <h1 className="text-2xl font-bold bg-gradient-to-r from-primary-600 to-primary-800 bg-clip-text text-transparent">
-                    CSV Splitter
+                <div className="flex items-center space-x-2">
+                  <h1 className="text-xl md:text-2xl font-bold">
+                    <span className="text-primary-500">csv splitter.</span>
+                    <span className="text-text">aurora</span>
+                    <span className="text-text align-super text-sm">33</span>
                   </h1>
                 </div>
-                <nav className="hidden md:flex space-x-4">
-                  <a href="#how-it-works" className="text-slate-600 hover:text-primary-600 transition-colors">
-                    Cómo funciona
-                  </a>
-                  <a href="#features" className="text-slate-600 hover:text-primary-600 transition-colors">
-                    Características
-                  </a>
+                <nav className="flex items-center space-x-4">
+                  <div className="hidden md:flex space-x-4">
+                    <a href="#how-it-works" className="text-text-muted hover:text-primary-500 transition-colors text-sm">
+                      Cómo funciona
+                    </a>
+                    <a href="#features" className="text-text-muted hover:text-primary-500 transition-colors text-sm">
+                      Características
+                    </a>
+                  </div>
+                  <div className="flex items-center space-x-2 border border-slate-200 rounded-full px-3 py-1.5">
+                    <button className="text-xs font-medium text-text hover:text-primary-500 transition-colors">ES</button>
+                    <span className="text-slate-300">|</span>
+                    <button className="text-xs font-medium text-text-muted hover:text-primary-500 transition-colors">EN</button>
+                  </div>
                 </nav>
               </div>
             </div>
@@ -42,9 +46,31 @@ export default function RootLayout({
           <main>{children}</main>
           <footer className="bg-white border-t border-slate-200 mt-16">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-              <p className="text-center text-slate-600">
-                © 2026 CSV Splitter - Herramienta gratuita y segura
-              </p>
+              <div className="text-center space-y-3">
+                <p className="text-text-muted text-sm">
+                  Hecho con IA y ❤️ por{' '}
+                  <a
+                    href="https://aurora33.dev"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-primary-500 font-semibold hover:text-primary-600 transition-colors"
+                  >
+                    Aurora33
+                  </a>
+                </p>
+                <p className="text-text-muted text-sm">
+                  ¿Necesitas soluciones personalizadas para tu negocio?{' '}
+                  <a
+                    href="https://aurora33.dev"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-primary-500 font-semibold hover:text-primary-600 transition-colors underline"
+                  >
+                    Contáctanos
+                  </a>
+                  .
+                </p>
+              </div>
             </div>
           </footer>
         </div>

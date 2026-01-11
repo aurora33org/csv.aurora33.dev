@@ -6,18 +6,33 @@ module.exports = {
   ],
   theme: {
     extend: {
+      fontFamily: {
+        'sans': ['Quicksand', 'sans-serif'],
+        'heading': ['Kangge', 'sans-serif'],
+        'quicksand': ['Quicksand', 'sans-serif'],
+        'kangge': ['Kangge', 'sans-serif'],
+      },
       colors: {
+        // Aurora 33 Brand Colors
         primary: {
-          50: '#eef2ff',
-          100: '#e0e7ff',
-          200: '#c7d2fe',
-          300: '#a5b4fc',
-          400: '#818cf8',
-          500: '#6366f1',
-          600: '#4f46e5',
-          700: '#4338ca',
-          800: '#3730a3',
-          900: '#312e81',
+          50: '#FEF2F2',
+          100: '#FEE5E2',
+          200: '#FECDC7',
+          300: '#FDB4AC',
+          400: '#FC9B91',
+          500: '#F84733',
+          600: '#E63920',
+          700: '#C72F1A',
+          800: '#A82515',
+          900: '#891C10',
+        },
+        background: {
+          DEFAULT: '#F8F8F8',
+          secondary: '#FCF6F0',
+        },
+        text: {
+          DEFAULT: '#191A1B',
+          muted: '#838A8D',
         },
       },
       animation: {

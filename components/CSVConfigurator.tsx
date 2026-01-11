@@ -32,20 +32,20 @@ export default function CSVConfigurator({
   };
 
   return (
-    <div className="w-full animate-slide-up">
+    <div className="w-full max-w-3xl mx-auto">
       <div className="card">
         <div className="mb-6">
-          <h2 className="text-2xl font-bold text-slate-800 mb-2">
+          <h2 className="text-2xl font-bold text-text mb-2">
             Configurar división
           </h2>
-          <p className="text-slate-600">
-            Tu archivo contiene <span className="font-semibold text-primary-600">{totalRows.toLocaleString()}</span> filas en total
+          <p className="text-text-muted">
+            Tu archivo contiene <span className="font-semibold text-primary-500">{totalRows.toLocaleString()}</span> filas en total
           </p>
         </div>
 
         {/* Opciones rápidas */}
         <div className="mb-6">
-          <label className="block text-sm font-medium text-slate-700 mb-3">
+          <label className="block text-sm font-medium text-text mb-3">
             Opciones rápidas:
           </label>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
@@ -58,8 +58,8 @@ export default function CSVConfigurator({
                   transition-all duration-200
                   ${
                     rowsPerFile === option.value
-                      ? 'bg-primary-600 text-white shadow-lg scale-105'
-                      : 'bg-slate-100 text-slate-700 hover:bg-slate-200'
+                      ? 'bg-primary-500 text-white shadow-lg scale-105'
+                      : 'bg-background-secondary text-text hover:bg-slate-200'
                   }
                 `}
               >
@@ -71,7 +71,7 @@ export default function CSVConfigurator({
 
         {/* Input personalizado */}
         <div className="mb-6">
-          <label htmlFor="rowsPerFile" className="block text-sm font-medium text-slate-700 mb-2">
+          <label htmlFor="rowsPerFile" className="block text-sm font-medium text-text mb-2">
             O ingresa un valor personalizado:
           </label>
           <div className="relative">
@@ -82,29 +82,29 @@ export default function CSVConfigurator({
               max={totalRows}
               value={rowsPerFile}
               onChange={(e) => setRowsPerFile(Math.max(1, parseInt(e.target.value) || 1))}
-              className="w-full px-4 py-3 border-2 border-slate-300 rounded-lg focus:border-primary-500 focus:ring-2 focus:ring-primary-200 outline-none transition-all text-lg font-semibold text-slate-700"
+              className="w-full px-4 py-3 border-2 border-slate-300 rounded-lg focus:border-primary-500 focus:ring-2 focus:ring-primary-100 outline-none transition-all text-lg font-semibold text-text"
               placeholder="Ej: 1000"
             />
-            <span className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-500 font-medium">
+            <span className="absolute right-4 top-1/2 -translate-y-1/2 text-text-muted font-medium">
               filas
             </span>
           </div>
         </div>
 
         {/* Checkbox de incluir header */}
-        <div className="mb-6 p-4 bg-slate-50 rounded-lg">
+        <div className="mb-6 p-4 bg-background-secondary rounded-lg">
           <label className="flex items-center space-x-3 cursor-pointer">
             <input
               type="checkbox"
               checked={includeHeader}
               onChange={(e) => setIncludeHeader(e.target.checked)}
-              className="w-5 h-5 text-primary-600 border-slate-300 rounded focus:ring-2 focus:ring-primary-500 cursor-pointer"
+              className="w-5 h-5 text-primary-500 border-slate-300 rounded focus:ring-2 focus:ring-primary-200 cursor-pointer"
             />
             <div>
-              <span className="font-medium text-slate-700">
+              <span className="font-medium text-text">
                 Incluir encabezado en cada archivo
               </span>
-              <p className="text-sm text-slate-500">
+              <p className="text-sm text-text-muted">
                 La primera fila se copiará en todos los archivos generados
               </p>
             </div>
@@ -112,18 +112,18 @@ export default function CSVConfigurator({
         </div>
 
         {/* Resumen */}
-        <div className="mb-6 p-4 bg-gradient-to-r from-primary-50 to-indigo-50 rounded-lg border-2 border-primary-200">
+        <div className="mb-6 p-4 bg-primary-50 rounded-lg border-2 border-primary-200">
           <div className="flex items-start space-x-3">
-            <div className="w-10 h-10 bg-primary-600 rounded-lg flex items-center justify-center flex-shrink-0">
+            <div className="w-10 h-10 bg-primary-500 rounded-lg flex items-center justify-center flex-shrink-0">
               <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
               </svg>
             </div>
             <div>
-              <h3 className="font-semibold text-slate-800 mb-1">Resultado estimado:</h3>
-              <p className="text-slate-700">
+              <h3 className="font-semibold text-text mb-1">Resultado estimado:</h3>
+              <p className="text-text">
                 Se generarán aproximadamente{' '}
-                <span className="font-bold text-primary-700 text-xl">{estimatedFiles}</span>{' '}
+                <span className="font-bold text-primary-500 text-xl">{estimatedFiles}</span>{' '}
                 {estimatedFiles === 1 ? 'archivo' : 'archivos'}
               </p>
             </div>
