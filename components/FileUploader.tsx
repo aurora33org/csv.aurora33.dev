@@ -73,13 +73,15 @@ export default function FileUploader({ onFileSelect }: FileUploaderProps) {
           relative cursor-pointer
           border-2 rounded-3xl
           transition-all duration-300 ease-in-out
+          h-[455px]
+          flex items-center justify-center
           ${
             isDragging
               ? 'border-primary-500 bg-primary-50/30 scale-[1.02]'
-              : 'border-primary-500 bg-white hover:bg-background-secondary'
+              : 'border-primary-500 hover:border-primary-600'
           }
-          p-12 md:p-16 text-center
         `}
+        style={{ backgroundColor: '#FCF6F0' }}
       >
         <input
           ref={fileInputRef}
