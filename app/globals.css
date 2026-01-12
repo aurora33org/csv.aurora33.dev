@@ -1,48 +1,72 @@
-@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&family=Syne:wght@400..800&display=swap');
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 @font-face {
-  font-family: 'Kangge';
-  src: url('/fonts/Kangge.woff2') format('woff2'),
-       url('/fonts/Kangge.ttf') format('truetype');
-  font-weight: normal;
-  font-style: normal;
+  font-family: "Kangge";
+  src: url("/fonts/Kangge.woff2") format("woff2"),
+       url("/fonts/Kangge.ttf") format("truetype");
+  font-weight: 400;
   font-display: swap;
 }
 
 @layer base {
+  /* Light mode como DEFAULT */
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
+    --bg: #F8F8F8;
+    --text: #191A1B;
+    --text-muted: #4c5052;
+    --primary: #F84733;
+    --container: #FCF6F0;
+    color-scheme: light;
   }
 
-  html {
-    font-family: 'Quicksand', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  /* Dark mode - cuando html TIENE la clase .dark */
+  html.dark {
+    --bg: #191A1B;
+    --text: #F6F6F6;
+    --text-muted: #F3DDCA;
+    --primary: #F84733;
+    --container: #221A19;
+    color-scheme: dark;
   }
 
   body {
-    @apply bg-background min-h-screen;
+    background-color: var(--bg);
+    color: var(--text);
     font-family: 'Quicksand', sans-serif;
+    transition: background-color 0.4s ease, color 0.4s ease, border-color 0.4s ease;
+    text-wrap: pretty;
   }
 
-  h1, h2, h3, h4 {
-    font-family: 'Kangge', sans-serif;
+  h1 {
+    font-family: "Kangge", sans-serif;
+    transition: color 0.4s ease;
+  }
+
+  h2, h3, h4, h5, h6 {
+    font-family: 'Syne', sans-serif;
+    transition: color 0.4s ease;
+  }
+
+  /* Transiciones suaves para todo */
+  * {
+    transition: background-color 0.4s ease, color 0.4s ease, border-color 0.4s ease;
   }
 }
 
 @layer components {
   .card {
-    @apply bg-white rounded-xl shadow-lg p-6 border border-slate-200;
+    @apply bg-white dark:bg-container-dark rounded-xl shadow-lg p-6 border border-slate-200 dark:border-gray-700;
   }
 
   .btn-primary {
-    @apply bg-primary-500 hover:bg-primary-600 text-white font-semibold py-3 px-6 rounded-lg transition-all duration-200 shadow-md hover:shadow-lg transform hover:-translate-y-0.5 active:translate-y-0;
+    @apply bg-primary hover:bg-primary text-white font-semibold py-3 px-6 rounded-lg transition-all duration-200 shadow-md hover:shadow-lg transform hover:-translate-y-0.5 active:translate-y-0;
   }
 
   .btn-secondary {
-    @apply bg-background-secondary hover:bg-slate-200 text-text font-semibold py-3 px-6 rounded-lg transition-all duration-200;
+    @apply bg-container dark:bg-container-dark hover:bg-slate-200 dark:hover:bg-gray-600 text-text dark:text-text-dark font-semibold py-3 px-6 rounded-lg transition-all duration-200;
   }
 }

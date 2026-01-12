@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import './globals.css'
+import { ThemeToggle } from '@/components/ThemeToggle'
 
 export const metadata: Metadata = {
   title: 'csv.aurora33 - Herramientas CSV',
@@ -15,56 +16,59 @@ export default function RootLayout({
     <html lang="es">
       <body className="antialiased">
         <div className="min-h-screen">
-          <header className="bg-white border-b border-slate-200 sticky top-0 z-50 h-[100px] mb-4">
-            <div className="max-w-[1600px] mx-auto px-4 sm:px-8 lg:px-[60px] h-full">
-              <div className="flex items-center justify-between h-full">
+          <header className="bg-white dark:bg-bg-dark border-b border-gray-200 dark:border-gray-700 sticky top-0 z-50">
+            <nav className="py-4 sm:py-6 md:py-8 px-4 sm:px-8 md:px-16 lg:px-20 xl:px-[120px] max-w-[1720px] mx-auto">
+              <div className="flex items-center justify-between">
                 <div className="flex items-center space-x-2">
                   <h1 className="text-xl md:text-2xl font-bold">
-                    <span className="text-primary-500">csv.</span>
-                    <span className="text-text">aurora</span>
-                    <span className="text-text align-super text-sm">33</span>
+                    <span className="text-primary">csv.</span>
+                    <span className="text-text dark:text-text-dark">aurora</span>
+                    <span className="text-text dark:text-text-dark align-super text-sm">33</span>
                   </h1>
                 </div>
-                <nav className="flex items-center space-x-4">
+                <div className="flex items-center gap-4">
                   <div className="hidden md:flex space-x-4">
-                    <a href="#how-it-works" className="text-text-muted hover:text-primary-500 transition-colors text-sm">
+                    <a href="#how-it-works" className="text-text-muted dark:text-text-muted-dark hover:text-primary transition-colors text-sm">
                       Cómo funciona
                     </a>
-                    <a href="#features" className="text-text-muted hover:text-primary-500 transition-colors text-sm">
+                    <a href="#features" className="text-text-muted dark:text-text-muted-dark hover:text-primary transition-colors text-sm">
                       Características
                     </a>
                   </div>
-                  <div className="flex items-center space-x-2 border border-slate-200 rounded-full px-3 py-1.5">
-                    <button className="text-xs font-medium text-text hover:text-primary-500 transition-colors">ES</button>
-                    <span className="text-slate-300">|</span>
-                    <button className="text-xs font-medium text-text-muted hover:text-primary-500 transition-colors">EN</button>
+                  <div className="flex items-center gap-3">
+                    <div className="flex items-center space-x-2 border border-slate-200 dark:border-gray-700 rounded-full px-3 py-1.5">
+                      <button className="text-xs font-medium text-text dark:text-text-dark hover:text-primary transition-colors">ES</button>
+                      <span className="text-slate-300 dark:text-gray-600">|</span>
+                      <button className="text-xs font-medium text-text-muted dark:text-text-muted-dark hover:text-primary transition-colors">EN</button>
+                    </div>
+                    <ThemeToggle />
                   </div>
-                </nav>
+                </div>
               </div>
-            </div>
+            </nav>
           </header>
           <main>{children}</main>
-          <footer className="bg-white border-t border-slate-200 mt-16">
-            <div className="max-w-[1600px] mx-auto px-4 sm:px-8 lg:px-[60px] py-8">
+          <footer className="bg-white dark:bg-bg-dark border-t border-gray-200 dark:border-gray-700 mt-16">
+            <div className="py-8 sm:py-12 md:py-16 px-4 sm:px-8 md:px-16 lg:px-20 xl:px-[120px] max-w-[1720px] mx-auto">
               <div className="text-center space-y-3">
-                <p className="text-text-muted text-sm">
+                <p className="text-text-muted dark:text-text-muted-dark text-sm">
                   Hecho con IA y ❤️ por{' '}
                   <a
                     href="https://aurora33.dev"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-primary-500 font-semibold hover:text-primary-600 transition-colors"
+                    className="text-primary font-semibold hover:underline transition-colors"
                   >
                     Aurora33
                   </a>
                 </p>
-                <p className="text-text-muted text-sm">
+                <p className="text-text-muted dark:text-text-muted-dark text-sm">
                   ¿Necesitas soluciones personalizadas para tu negocio?{' '}
                   <a
                     href="https://aurora33.dev"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-primary-500 font-semibold hover:text-primary-600 transition-colors underline"
+                    className="text-primary font-semibold hover:underline transition-colors"
                   >
                     Contáctanos
                   </a>
