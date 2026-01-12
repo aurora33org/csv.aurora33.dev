@@ -75,13 +75,13 @@ export default function FileUploader({ onFileSelect }: FileUploaderProps) {
           transition-all duration-300 ease-in-out
           h-[455px]
           flex items-center justify-center
+          bg-container dark:bg-container-dark
           ${
             isDragging
-              ? 'border-primary-500 bg-primary-50/30 scale-[1.02]'
-              : 'border-primary-500 hover:border-primary-600'
+              ? 'border-primary bg-opacity-80 dark:bg-opacity-80 scale-[1.02]'
+              : 'border-primary hover:border-primary'
           }
         `}
-        style={{ backgroundColor: '#FCF6F0' }}
       >
         <input
           ref={fileInputRef}
@@ -95,7 +95,7 @@ export default function FileUploader({ onFileSelect }: FileUploaderProps) {
           {/* Icono */}
           <div className="w-16 h-16 md:w-20 md:h-20 flex items-center justify-center">
             <svg
-              className="w-full h-full text-primary-500"
+              className="w-full h-full text-primary"
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"
@@ -111,19 +111,19 @@ export default function FileUploader({ onFileSelect }: FileUploaderProps) {
 
           {/* Texto principal */}
           <div>
-            <p className="text-lg md:text-xl font-medium text-text mb-2">
+            <p className="text-lg md:text-xl font-medium text-text dark:text-text-dark mb-2">
               {isDragging ? '¡Suelta el archivo aquí!' : 'Arrastra y suelta archivos aquí'}
             </p>
-            <p className="text-sm text-text-muted">
+            <p className="text-sm text-text-muted dark:text-text-muted-dark">
               o haz click para explorar tus archivos
             </p>
           </div>
 
           {/* Info */}
-          <p className="text-xs text-text-muted mt-2">
+          <p className="text-xs text-text-muted dark:text-text-muted-dark mt-2">
             Por ahora solo aceptamos archivos de hasta 8 MB
           </p>
-          <p className="text-xs text-text-muted">
+          <p className="text-xs text-text-muted dark:text-text-muted-dark">
             En el futuro permitiremos archivos más grandes
           </p>
         </div>
