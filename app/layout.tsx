@@ -35,14 +35,7 @@ export default function RootLayout({
                       Características
                     </a>
                   </div>
-                  <div className="flex items-center gap-3">
-                    <div className="flex items-center space-x-2 border border-slate-200 dark:border-gray-700 rounded-full px-3 py-1.5">
-                      <button className="text-xs font-medium text-text dark:text-text-dark hover:text-primary transition-colors">ES</button>
-                      <span className="text-slate-300 dark:text-gray-600">|</span>
-                      <button className="text-xs font-medium text-text-muted dark:text-text-muted-dark hover:text-primary transition-colors">EN</button>
-                    </div>
-                    <ThemeToggle />
-                  </div>
+                  <ThemeToggle />
                 </div>
               </div>
             </nav>
