@@ -74,9 +74,7 @@ export default function Home() {
     const rateLimitCheck = canConvert();
 
     if (!rateLimitCheck.allowed) {
-      setCooldownError(
-        `Por favor espera ${formatRemainingTime(rateLimitCheck.remainingTime)} antes de realizar otra conversión.`
-      );
+      setCooldownError('Por favor espera 5m antes de realizar otra conversión.');
       setRemainingTime(rateLimitCheck.remainingTime);
       // Scroll al top para mostrar el error
       window.scrollTo({ top: 0, behavior: 'smooth' });
