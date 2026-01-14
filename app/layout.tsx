@@ -16,11 +16,11 @@ export default function RootLayout({
     <html lang="es">
       <body className="antialiased">
         <div className="min-h-screen">
-          <header className="bg-white dark:bg-bg-dark border-b border-gray-200 dark:border-gray-700 sticky top-0 z-50">
+          <header className="bg-white dark:bg-bg-dark border-b border-gray-200 dark:border-gray-700 sticky top-0 z-50 mb-4">
             <nav className="py-4 sm:py-6 md:py-8 px-4 sm:px-8 md:px-16 lg:px-20 xl:px-[120px] max-w-[1720px] mx-auto">
               <div className="flex items-center justify-between">
                 <div className="flex items-center space-x-2">
-                  <h1 className="text-xl md:text-2xl font-bold">
+                  <h1 className="text-2xl font-bold">
                     <span className="text-primary">csv.</span>
                     <span className="text-text dark:text-text-dark">aurora</span>
                     <span className="text-text dark:text-text-dark align-super text-sm">33</span>

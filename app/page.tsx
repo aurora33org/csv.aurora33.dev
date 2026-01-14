@@ -1,12 +1,15 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import FileUploader from '@/components/FileUploader';
 import CSVConfigurator from '@/components/CSVConfigurator';
 import ResultsViewer from '@/components/ResultsViewer';
+import { ProcessingOverlay } from '@/components/ProcessingOverlay';
 import { analyzeCSV, splitCSV, CSVFile } from '@/lib/csvSplitter';
+import { canConvert, recordConversion, formatRemainingTime } from '@/lib/rateLimiter';
 
 type Step = 'upload' | 'configure' | 'results';
+type ProcessingStage = 'analyzing' | 'splitting' | null;
 
 export default function Home() {
   const [currentStep, setCurrentStep] = useState<Step>('upload');
@@ -15,9 +18,34 @@ export default function Home() {
   const [totalRows, setTotalRows] = useState<number>(0);
   const [splitFiles, setSplitFiles] = useState<CSVFile[]>([]);
   const [isProcessing, setIsProcessing] = useState(false);
+  const [processingStage, setProcessingStage] = useState<ProcessingStage>(null);
+  const [cooldownError, setCooldownError] = useState<string | null>(null);
+  const [remainingTime, setRemainingTime] = useState<number>(0);
+
+  // Efecto para actualizar contador regresivo de cooldown
+  useEffect(() => {
+    if (remainingTime <= 0) {
+      setCooldownError(null);
+      return;
+    }
+
+    const interval = setInterval(() => {
+      setRemainingTime((prev) => {
+        const newTime = prev - 1000;
+        if (newTime <= 0) {
+          setCooldownError(null);
+          return 0;
+        }
+        return newTime;
+      });
+    }, 1000);
+
+    return () => clearInterval(interval);
+  }, [remainingTime]);
 
   const handleFileSelect = async (file: File) => {
     setIsProcessing(true);
+    setProcessingStage('analyzing');
     setSelectedFile(file);
 
     try {
@@ -27,32 +55,55 @@ export default function Home() {
       const analysis = analyzeCSV(content);
       setTotalRows(analysis.totalRows);
 
+      // Esperar 5 segundos (simulación de procesamiento con stages)
       setTimeout(() => {
         setIsProcessing(false);
+        setProcessingStage(null);
         setCurrentStep('configure');
-      }, 500);
+      }, 5000); // Aumentado de 500ms a 5000ms
     } catch (error) {
       console.error('Error al leer el archivo:', error);
       alert('Error al procesar el archivo. Por favor, intenta de nuevo.');
       setIsProcessing(false);
+      setProcessingStage(null);
     }
   };
 
   const handleConfigure = (rowsPerFile: number, includeHeader: boolean) => {
+    // Verificar rate limit antes de procesar
+    const rateLimitCheck = canConvert();
+
+    if (!rateLimitCheck.allowed) {
+      setCooldownError(
+        `Por favor espera ${formatRemainingTime(rateLimitCheck.remainingTime)} antes de realizar otra conversión.`
+      );
+      setRemainingTime(rateLimitCheck.remainingTime);
+      // Scroll al top para mostrar el error
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      return;
+    }
+
     setIsProcessing(true);
+    setProcessingStage('splitting');
 
     try {
       const result = splitCSV(fileContent, { rowsPerFile, includeHeader });
       setSplitFiles(result.files);
 
+      // Registrar conversión exitosa
+      recordConversion();
+
+      // Esperar 7.5 segundos (simulación de procesamiento con stages)
       setTimeout(() => {
         setIsProcessing(false);
+        setProcessingStage(null);
         setCurrentStep('results');
-      }, 500);
+      }, 7500); // Aumentado de 500ms a 7500ms
     } catch (error) {
       console.error('Error al dividir el archivo:', error);
       alert('Error al dividir el archivo. Por favor, intenta de nuevo.');
       setIsProcessing(false);
+      setProcessingStage(null);
     }
   };
 
@@ -73,6 +124,33 @@ export default function Home() {
 
   return (
     <div className="max-w-[1600px] mx-auto px-4 sm:px-8 lg:px-[60px] py-8 md:py-12">
+      {/* Mensaje de error de cooldown */}
+      {cooldownError && (
+        <div className="mb-6 p-5 bg-red-50 dark:bg-red-900/20 border-2 border-red-500 rounded-xl animate-fade-in">
+          <div className="flex items-start space-x-4">
+            <div className="w-12 h-12 bg-red-500 rounded-lg flex items-center justify-center flex-shrink-0">
+              <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+            </div>
+            <div className="flex-1">
+              <h3 className="font-bold text-red-700 dark:text-red-400 mb-2 text-lg">
+                Límite de conversiones alcanzado
+              </h3>
+              <p className="text-red-600 dark:text-red-300 mb-3">
+                {cooldownError}
+              </p>
+              <div className="flex items-center space-x-2 text-sm">
+                <div className="w-3 h-3 bg-red-500 rounded-full animate-pulse" />
+                <span className="font-semibold text-red-700 dark:text-red-400">
+                  Tiempo restante: {formatRemainingTime(remainingTime)}
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
       {/* Hero Section - Siempre visible */}
       {currentStep === 'upload' && (
         <div className="animate-fade-in">
@@ -351,15 +429,8 @@ export default function Home() {
         </div>
       )}
 
-      {/* Loading overlay */}
-      {isProcessing && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 dark:bg-opacity-70 flex items-center justify-center z-50 animate-fade-in">
-          <div className="bg-white dark:bg-container-dark rounded-2xl p-8 flex flex-col items-center space-y-4 shadow-2xl">
-            <div className="w-16 h-16 border-4 border-primary border-t-transparent rounded-full animate-spin" />
-            <p className="text-lg font-semibold text-text dark:text-text-dark">Procesando...</p>
-          </div>
-        </div>
-      )}
+      {/* Processing Overlay con ads rotativos */}
+      <ProcessingOverlay stage={processingStage} />
 
       {/* Configure Step */}
       {currentStep === 'configure' && (

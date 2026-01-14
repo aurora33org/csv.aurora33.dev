@@ -73,7 +73,7 @@ export default function FileUploader({ onFileSelect }: FileUploaderProps) {
           relative cursor-pointer
           border-2 rounded-3xl
           transition-all duration-300 ease-in-out
-          h-[455px]
+          h-[400px]
           flex items-center justify-center
           bg-container dark:bg-container-dark
           ${
@@ -111,7 +111,7 @@ export default function FileUploader({ onFileSelect }: FileUploaderProps) {
 
           {/* Texto principal */}
           <div>
-            <p className="text-lg md:text-xl font-medium text-text dark:text-text-dark mb-2">
+            <p className="text-[30px] font-medium text-text dark:text-text-dark mb-2">
               {isDragging ? '¡Suelta el archivo aquí!' : 'Arrastra y suelta archivos aquí'}
             </p>
             <p className="text-sm text-text-muted dark:text-text-muted-dark">
