@@ -10,45 +10,34 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        // Color primario (mismo en light y dark)
-        primary: '#F84733',
-
-        // LIGHT MODE (colores por defecto)
-        background: '#F8F8F8',
-        text: '#191A1B',
-        'text-muted': '#4c5052',
-        container: '#FCF6F0',
-        contrast: '#F84733',
-        'contrast-v2': '#FCF6F0',
-
-        // DARK MODE (usar con prefijo dark:)
-        'bg-dark': '#191A1B',
-        'text-dark': '#F6F6F6',
-        'text-muted-dark': '#FCF5EF',
-        'container-dark': '#3B3C3E',
+        background:           'oklch(var(--background) / <alpha-value>)',
+        foreground:           'oklch(var(--foreground) / <alpha-value>)',
+        card:                 'oklch(var(--card) / <alpha-value>)',
+        primary:              'oklch(var(--primary) / <alpha-value>)',
+        'primary-foreground': 'oklch(var(--primary-foreground) / <alpha-value>)',
+        secondary:            'oklch(var(--secondary) / <alpha-value>)',
+        muted:                'oklch(var(--muted) / <alpha-value>)',
+        'muted-foreground':   'oklch(var(--muted-foreground) / <alpha-value>)',
+        border:               'oklch(var(--border) / <alpha-value>)',
       },
       fontFamily: {
-        syne: ['Syne', 'sans-serif'],
-        kangge: ['Kangge', 'sans-serif'],
-        quicksand: ['Quicksand', 'sans-serif'],
+        sans:       ['var(--font-geist-sans)', 'system-ui', 'sans-serif'],
+        mono:       ['var(--font-geist-mono)', 'monospace'],
+        instrument: ['var(--font-instrument)', 'Georgia', 'serif'],
+        jetbrains:  ['var(--font-jetbrains)', 'monospace'],
       },
       animation: {
-        'fade-in': 'fadeIn 0.5s ease-in-out',
-        'fade-out': 'fadeOut 0.5s ease-in-out',
-        'slide-up': 'slideUp 0.5s ease-out',
+        'fade-in':    'fadeIn 0.5s ease-in-out',
+        'slide-up':   'slideUp 0.5s ease-out',
         'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
       },
       keyframes: {
         fadeIn: {
-          '0%': { opacity: '0' },
+          '0%':   { opacity: '0' },
           '100%': { opacity: '1' },
         },
-        fadeOut: {
-          '0%': { opacity: '1' },
-          '100%': { opacity: '0' },
-        },
         slideUp: {
-          '0%': { transform: 'translateY(20px)', opacity: '0' },
+          '0%':   { transform: 'translateY(20px)', opacity: '0' },
           '100%': { transform: 'translateY(0)', opacity: '1' },
         },
       },
@@ -56,4 +45,3 @@ module.exports = {
   },
   plugins: [],
 }
-

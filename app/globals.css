@@ -1,72 +1,92 @@
-@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&family=Syne:wght@400..800&display=swap');
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-@font-face {
-  font-family: "Kangge";
-  src: url("/fonts/Kangge.woff2") format("woff2"),
-       url("/fonts/Kangge.ttf") format("truetype");
-  font-weight: 400;
-  font-display: swap;
-}
-
 @layer base {
-  /* Light mode como DEFAULT */
   :root {
-    --bg: #F8F8F8;
-    --text: #191A1B;
-    --text-muted: #4c5052;
-    --primary: #F84733;
-    --container: #FCF6F0;
+    --background:         0.9849 0.0029 264.5421;
+    --foreground:         0.2795 0.0204 260.6090;
+    --card:               1.0000 0 0;
+    --primary:            0.5511 0.1602 284.9492;
+    --primary-foreground: 1.0000 0 0;
+    --secondary:          0.9409 0.0196 260.1696;
+    --muted:              0.9642 0.0041 271.3692;
+    --muted-foreground:   0.5011 0.0196 259.4168;
+    --border:             0.9206 0.0092 258.3368;
     color-scheme: light;
   }
 
-  /* Dark mode - cuando html TIENE la clase .dark */
   html.dark {
-    --bg: #191A1B;
-    --text: #F6F6F6;
-    --text-muted: #F3DDCA;
-    --primary: #F84733;
-    --container: #221A19;
+    --background:         0.1716 0.0097 255.6513;
+    --foreground:         0.9203 0.0150 260.7292;
+    --card:               0.2081 0.0153 261.6011;
+    --primary:            0.6992 0.1399 284.9900;
+    --primary-foreground: 0.1716 0.0097 255.6513;
+    --secondary:          0.2995 0.0301 260.5101;
+    --muted:              0.2501 0.0193 258.3593;
+    --muted-foreground:   0.6999 0.0198 258.3637;
+    --border:             0.2996 0.0161 259.7938;
     color-scheme: dark;
   }
 
   body {
-    background-color: var(--bg);
-    color: var(--text);
-    font-family: 'Quicksand', sans-serif;
+    background-color: oklch(var(--background));
+    color: oklch(var(--foreground));
+    font-family: var(--font-geist-sans), system-ui, sans-serif;
     transition: background-color 0.4s ease, color 0.4s ease, border-color 0.4s ease;
     text-wrap: pretty;
+    -webkit-font-smoothing: antialiased;
   }
 
-  h1 {
-    font-family: "Kangge", sans-serif;
-    transition: color 0.4s ease;
-  }
-
-  h2, h3, h4, h5, h6 {
-    font-family: 'Syne', sans-serif;
-    transition: color 0.4s ease;
-  }
-
-  /* Transiciones suaves para todo */
   * {
     transition: background-color 0.4s ease, color 0.4s ease, border-color 0.4s ease;
   }
+
+  ::selection {
+    background: oklch(var(--primary));
+    color: oklch(var(--primary-foreground));
+  }
+
+  @keyframes hud-blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+  .hud-cursor { animation: hud-blink 1.1s step-end infinite; }
 }
 
 @layer components {
   .card {
-    @apply bg-white dark:bg-container-dark rounded-xl shadow-lg p-6 border border-slate-200 dark:border-gray-700;
+    background-color: oklch(var(--card));
+    border: 1px solid oklch(var(--border));
+    padding: 1.5rem;
   }
 
   .btn-primary {
-    @apply bg-primary hover:bg-primary text-white font-semibold py-3 px-6 rounded-lg transition-all duration-200 shadow-md hover:shadow-lg transform hover:-translate-y-0.5 active:translate-y-0;
+    background-color: oklch(var(--primary));
+    color: oklch(var(--primary-foreground));
+    font-weight: 600;
+    padding: 0.75rem 1.5rem;
+    border: 1px solid oklch(var(--primary));
+    cursor: pointer;
+    transition: opacity 0.2s ease;
+  }
+
+  .btn-primary:hover {
+    opacity: 0.88;
+  }
+
+  .btn-primary:active {
+    opacity: 0.75;
   }
 
   .btn-secondary {
-    @apply bg-container dark:bg-container-dark hover:bg-slate-200 dark:hover:bg-gray-600 text-text dark:text-text-dark font-semibold py-3 px-6 rounded-lg transition-all duration-200;
+    background-color: oklch(var(--secondary));
+    color: oklch(var(--foreground));
+    font-weight: 600;
+    padding: 0.75rem 1.5rem;
+    border: 1px solid oklch(var(--border));
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+  }
+
+  .btn-secondary:hover {
+    background-color: oklch(var(--muted));
   }
 }
