@@ -7,7 +7,6 @@ export function ThemeToggle() {
   const [darkMode, setDarkMode] = useState(false);
   const [mounted, setMounted] = useState(false);
 
-  // Inicializar tema
   useEffect(() => {
     setMounted(true);
     const savedTheme = localStorage.getItem('theme');
@@ -23,7 +22,6 @@ export function ThemeToggle() {
     }
   }, []);
 
-  // Aplicar cambios de tema
   useEffect(() => {
     if (!mounted) return;
 
@@ -36,26 +34,20 @@ export function ThemeToggle() {
     }
   }, [darkMode, mounted]);
 
-  // Evitar flash antes del mount
   if (!mounted) {
-    return <div className="h-8 w-16" />;
+    return <div className="h-8 w-20" />;
   }
 
   return (
     <button
       onClick={() => setDarkMode(!darkMode)}
-      className={`relative inline-flex items-center justify-between h-8 w-16 px-1 rounded-full transition-all duration-500 ${
-        darkMode ? 'bg-contrast' : 'bg-gray-300'
-      }`}
+      className="flex items-center gap-2 px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground border border-border transition-colors"
       aria-label="Toggle dark mode"
     >
-      <Sun size={16} className="flex-shrink-0 transition-colors text-black relative z-10 ml-1" />
-      <span
-        className={`absolute inline-block h-6 w-6 transform rounded-full transition-all duration-500 ${
-          darkMode ? 'bg-black translate-x-8' : 'bg-white translate-x-0'
-        }`}
-      />
-      <Moon size={16} className={`flex-shrink-0 transition-colors ${darkMode ? 'text-white' : 'text-white'} relative z-10 mr-1`} />
+      {darkMode ? <Sun size={14} /> : <Moon size={14} />}
+      <span className="hidden sm:inline font-mono text-xs">
+        {darkMode ? 'Light' : 'Dark'}
+      </span>
     </button>
   );
 }
